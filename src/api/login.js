@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 
 const userApi = {
-  Login: '/auth/login',
-  Logout: '/auth/logout',
+  Login: '/Login/CheckLogin',
+  Logout: '/Home/Logout',
   ForgePassword: '/auth/forge-password',
   Register: '/auth/register',
   twoStepCode: '/auth/2step-code',
@@ -10,7 +10,7 @@ const userApi = {
   SendSmsErr: '/account/sms_err',
   // get my info
   UserInfo: '/user/info',
-  UserMenu: '/user/nav'
+  UserMenu: '/Home/GetMenus'
 }
 
 /**
@@ -28,7 +28,8 @@ export function login (parameter) {
   return request({
     url: userApi.Login,
     method: 'post',
-    data: parameter
+    data: parameter,
+    params: parameter
   })
 }
 
@@ -50,10 +51,11 @@ export function getInfo () {
   })
 }
 
-export function getCurrentUserNav () {
+export function getCurrentUserNav (parameter) {
   return request({
     url: userApi.UserMenu,
-    method: 'get'
+    method: 'get',
+    params: parameter
   })
 }
 

@@ -1,36 +1,35 @@
 import storage from 'store'
 import expirePlugin from 'store/plugins/expire'
-import { login, getInfo, logout } from '@/api/login'
-import { ACCESS_TOKEN } from '@/store/mutation-types'
+import { login, getInfo, getCurrentUserNav, logout } from '@/api/login'
+import { ACCESS_TOKEN,USER_INFO } from '@/store/mutation-types'
 import { welcome } from '@/utils/util'
 
 storage.addPlugin(expirePlugin)
 const user = {
   state: {
-    token: '',
+    token: storage.get(ACCESS_TOKEN) || '',
     name: '',
     welcome: '',
-    avatar: '',
     roles: [],
-    info: {}
+    userInfo: storage.get(USER_INFO) || {}
   },
 
   mutations: {
     SET_TOKEN: (state, token) => {
       state.token = token
+      storage.set(ACCESS_TOKEN, token, new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
     },
     SET_NAME: (state, { name, welcome }) => {
       state.name = name
       state.welcome = welcome
     },
-    SET_AVATAR: (state, avatar) => {
-      state.avatar = avatar
-    },
     SET_ROLES: (state, roles) => {
       state.roles = roles
     },
-    SET_INFO: (state, info) => {
-      state.info = info
+    SET_USER_INFO: (state, userInfo) => {
+      state.userInfo = userInfo
+      storage.set(USER_INFO, userInfo, new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
+
     }
   },
 
@@ -39,10 +38,10 @@ const user = {
     Login ({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
         login(userInfo).then(response => {
-          const result = response.result
-          storage.set(ACCESS_TOKEN, result.token, new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
-          commit('SET_TOKEN', result.token)
-          resolve()
+          const result = response.data
+          commit('SET_TOKEN', result.Token)
+          commit('SET_USER_INFO', result)
+          resolve(response)
         }).catch(error => {
           reject(error)
         })
@@ -83,17 +82,33 @@ const user = {
       })
     },
 
+    GetMenus () {
+      return new Promise((resolve, reject) => {
+        // 0 web网页登录 1手机wap登录 2 PCV4
+        getCurrentUserNav({client:0})
+          .then(res => {
+            // console.log(res)
+            resolve(res)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
+
     // 登出
     Logout ({ commit, state }) {
       return new Promise((resolve) => {
-        logout(state.token).then(() => {
+        logout().then(() => {
           commit('SET_TOKEN', '')
           commit('SET_ROLES', [])
+          commit('SET_USER_INFO', {})
           storage.remove(ACCESS_TOKEN)
+          storage.remove(USER_INFO)
           resolve()
         }).catch((err) => {
           console.log('logout fail:', err)
-          // resolve()
+          resolve()
         }).finally(() => {
         })
       })

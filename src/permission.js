@@ -10,7 +10,7 @@ import { i18nRender } from '@/locales'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
-const allowList = ['login', 'register', 'registerResult'] // no redirect allowList
+const allowList = ['login'] // no redirect allowList
 const loginRoutePath = '/user/login'
 const defaultRoutePath = '/dashboard/workplace'
 
@@ -25,14 +25,17 @@ router.beforeEach((to, from, next) => {
       NProgress.done()
     } else {
       // check login user.roles is null
-      if (store.getters.roles.length === 0) {
-        // request login userInfo
+      // const menus = store.getters.permission_routes
+      // if (menus.length > 0 && menus.length !== 2) {
+
+      // }
+      if (store.getters.addRouters.length === 0) {
         store
-          .dispatch('GetInfo')
+          .dispatch('GetMenus')
           .then(res => {
             console.log('res', res)
             // 根据用户权限信息生成可访问的路由表
-            store.dispatch('GenerateRoutes', { token, ...res }).then(() => {
+            store.dispatch('GenerateRoutes', res.data).then(() => {
               // 动态添加可访问路由表
               // VueRouter@3.5.0+ New API
               resetRouter() // 重置路由 防止退出重新登录或者 token 过期后页面未刷新，导致的路由重复添加
@@ -53,7 +56,7 @@ router.beforeEach((to, from, next) => {
           .catch(() => {
             notification.error({
               message: '错误',
-              description: '请求用户信息失败，请重试'
+              description: '请求用户菜单失败，请重试'
             })
             // 失败时，获取用户信息失败时，调用登出，来清空历史保留信息
             store.dispatch('Logout').then(() => {

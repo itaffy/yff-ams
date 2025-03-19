@@ -10,25 +10,22 @@
           <div class="header">
             <a href="/">
               <img src="~@/assets/logo.svg" class="logo" alt="logo">
-              <span class="title">Ant Design</span>
+              <span class="title">远程抄表系统</span>
             </a>
-          </div>
-          <div class="desc">
-            {{ $t('layouts.userLayout.title') }}
           </div>
         </div>
 
         <router-view />
 
         <div class="footer">
-          <div class="links">
-            <a href="_self">帮助</a>
-            <a href="_self">隐私</a>
-            <a href="_self">条款</a>
-          </div>
-          <div class="copyright">
-            Copyright &copy; 2018 vueComponent
-          </div>
+          <span>湖南集社电子技术有限公司&nbsp;&nbsp;版权所有</span>&nbsp;&nbsp;
+          <a
+            style="color: #808080; font-size: 14px"
+            target="_blank"
+            rel="nofollow"
+            href="https://beian.miit.gov.cn/"
+          >湘ICP备16018022号-1</a
+          >
         </div>
       </div>
     </div>

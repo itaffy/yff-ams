@@ -1,34 +1,25 @@
 import axios from 'axios'
 import store from '@/store'
 import storage from 'store'
-import notification from 'ant-design-vue/es/notification'
+import {message} from 'ant-design-vue'
 import { VueAxios } from './axios'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 // 创建 axios 实例
-const request = axios.create({
+const request = axios.create({ 
   // API 请求的默认前缀
   baseURL: process.env.VUE_APP_API_BASE_URL,
-  timeout: 6000 // 请求超时时间
+  timeout: 60000 // 请求超时时间
 })
 
-// 异常拦截处理器
-const errorHandler = (error) => {
-  if (error.response) {
-    const data = error.response.data
-    // 从 localstorage 获取 token
-    const token = storage.get(ACCESS_TOKEN)
-    if (error.response.status === 403) {
-      notification.error({
-        message: 'Forbidden',
-        description: data.message
-      })
-    }
-    if (error.response.status === 401 && !(data.result && data.result.isLogin)) {
-      notification.error({
-        message: 'Unauthorized',
-        description: 'Authorization verification failed'
-      })
+const checkStatus = status => {
+  switch (status) {
+    case 400:
+      message.error('请求失败！请您稍后重试')
+      break
+    case 401:
+      message.error('登录失效！请您重新登录')
+      const token = storage.get(ACCESS_TOKEN)
       if (token) {
         store.dispatch('Logout').then(() => {
           setTimeout(() => {
@@ -36,7 +27,44 @@ const errorHandler = (error) => {
           }, 1500)
         })
       }
-    }
+      break
+    case 403:
+      message.error('当前账号无权限访问！')
+      break
+    case 404:
+      message.error('你所访问的资源不存在！')
+      break
+    case 405:
+      message.error('请求方式错误！请您稍后重试')
+      break
+    case 408:
+      message.error('请求超时！请您稍后重试')
+      break
+    case 500:
+      message.error('服务异常！')
+      break
+    case 502:
+      message.error('网关错误！')
+      break
+    case 503:
+      message.error('服务不可用！')
+      break
+    case 504:
+      message.error('网关超时！')
+      break
+    default:
+      message.error('请求失败！')
+  }
+}
+
+// 异常拦截处理器
+const errorHandler = (error) => {
+  if (error.response) {
+    checkStatus(error.response.status)
+    const data = error.response.data
+    console.log('异常拦截 错误信息', data)
+  } else {
+    
   }
   return Promise.reject(error)
 }
@@ -54,6 +82,9 @@ request.interceptors.request.use(config => {
 
 // response interceptor
 request.interceptors.response.use((response) => {
+  if (!response.data.success) {
+    message.error(response.data.msg)
+  }
   return response.data
 }, errorHandler)
 
