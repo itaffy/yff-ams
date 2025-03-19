@@ -7,6 +7,7 @@
     :handleMediaQuery="handleMediaQuery"
     :handleCollapse="handleCollapse"
     :i18nRender="i18nRender"
+    :siderWidth="220"
     v-bind="settings"
   >
 
@@ -14,9 +15,8 @@
           我们推荐使用这种方式进行 LOGO 和 title 自定义
     -->
     <template v-slot:menuHeaderRender>
-      <div>
-        <img src="@/assets/logo.svg" />
-        <h1>{{ title }}</h1>
+      <div class="top-logo">
+        <img src="@/assets/logo.png" />
       </div>
     </template>
     <!-- 1.0.0+ 版本 pro-layout 提供 API,
