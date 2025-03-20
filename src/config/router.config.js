@@ -201,39 +201,37 @@ export const asyncRouterMap = [
           }
         ]
       },
-
-      // account
       {
-        path: '/account',
+        path: '/system',
         component: RouteView,
-        redirect: '/account/center',
-        name: 'account',
-        meta: { title: 'menu.account', icon: 'user', keepAlive: true, permission: ['user'] },
+        redirect: '/system/account/center',
+        name: 'system',
+        meta: { title: 'menu.system', icon: 'user', keepAlive: true, permission: ['system'] },
         children: [
           {
-            path: '/account/center',
+            path: '/system/account/center',
             name: 'center',
-            component: () => import('@/views/account/center'),
-            meta: { title: 'menu.account.center', keepAlive: true, permission: ['user'] }
+            component: () => import('@/views/system/account/center'),
+            meta: { title: 'menu.system.account.center', keepAlive: true, permission: ['system'] }
           },
           {
-            path: '/account/settings',
+            path: '/system/account/settings',
             name: 'settings',
-            component: () => import('@/views/account/settings/Index'),
-            meta: { title: 'menu.account.settings', hideHeader: true, permission: ['user'] },
-            redirect: '/account/settings/basic',
+            component: () => import('@/views/system/account/settings/Index'),
+            meta: { title: 'menu.system.account.settings', hideHeader: true, permission: ['user'] },
+            redirect: '/system/account/settings/basic',
             hideChildrenInMenu: true,
             children: [
               {
-                path: '/account/settings/basic',
+                path: '/system/account/settings/basic',
                 name: 'BasicSettings',
-                component: () => import('@/views/account/settings/BasicSetting'),
+                component: () => import('@/views/system/account/settings/BasicSetting'),
                 meta: { title: 'account.settings.menuMap.basic', hidden: true, permission: ['user'] }
               },
               {
-                path: '/account/settings/security',
+                path: '/system/account/settings/security',
                 name: 'SecuritySettings',
-                component: () => import('@/views/account/settings/Security'),
+                component: () => import('@/views/system/account/settings/Security'),
                 meta: {
                   title: 'account.settings.menuMap.security',
                   hidden: true,
@@ -242,21 +240,21 @@ export const asyncRouterMap = [
                 }
               },
               {
-                path: '/account/settings/custom',
+                path: '/system/account/settings/custom',
                 name: 'CustomSettings',
-                component: () => import('@/views/account/settings/Custom'),
+                component: () => import('@/views/system/account/settings/Custom'),
                 meta: { title: 'account.settings.menuMap.custom', hidden: true, keepAlive: true, permission: ['user'] }
               },
               {
-                path: '/account/settings/binding',
+                path: '/system/account/settings/binding',
                 name: 'BindingSettings',
-                component: () => import('@/views/account/settings/Binding'),
+                component: () => import('@/views/system/account/settings/Binding'),
                 meta: { title: 'account.settings.menuMap.binding', hidden: true, keepAlive: true, permission: ['user'] }
               },
               {
-                path: '/account/settings/notification',
+                path: '/system/account/settings/notification',
                 name: 'NotificationSettings',
-                component: () => import('@/views/account/settings/Notification'),
+                component: () => import('@/views/system/account/settings/Notification'),
                 meta: {
                   title: 'account.settings.menuMap.notification',
                   hidden: true,
@@ -265,9 +263,40 @@ export const asyncRouterMap = [
                 }
               }
             ]
-          }
+          },
+          {
+            path: '/system/role',
+            name: 'role',
+            component: () => import('@/views/system/role'),
+            meta: { title: 'menu.system.role', keepAlive: true, permission: ['system']}
+          },
+          {
+            path: '/system/userList',
+            name: 'userList',
+            component: () => import('@/views/system/userList'),
+            meta: { title: 'menu.system.userList', keepAlive: true, permission: ['system']}
+          },
+          {
+            path: '/system/chargeClassify',
+            name: 'chargeClassify',
+            component: () => import('@/views/system/chargeClassify'),
+            meta: { title: 'menu.system.chargeClassify', keepAlive: true, permission: ['system']}
+          },
+          {
+            path: '/system/areaPermission',
+            name: 'areaPermission',
+            component: () => import('@/views/system/areaPermission'),
+            meta: { title: 'menu.system.areaPermission', keepAlive: true, permission: ['system']}
+          },
+          {
+            path: '/system/set',
+            name: 'systemSet',
+            component: () => import('@/views/system/set'),
+            meta: { title: 'menu.system.set', keepAlive: true, permission: ['system']}
+          },
         ]
-      }
+      },
+
 
       // other
       /*

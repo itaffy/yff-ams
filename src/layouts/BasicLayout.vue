@@ -16,18 +16,19 @@
     -->
     <template v-slot:menuHeaderRender>
       <div class="top-logo">
-        <img src="@/assets/logo.png" />
+        <img v-if="collapsed" src="@/assets/logo-collapsed.png" style="width: 31px;height: 22px;" />
+        <img v-else src="@/assets/logo.png" />
       </div>
     </template>
     <!-- 1.0.0+ 版本 pro-layout 提供 API,
           增加 Header 左侧内容区自定义
     -->
     <template v-slot:headerContentRender>
-      <div>
+      <!-- <div>
         <a-tooltip title="刷新页面">
           <a-icon type="reload" style="font-size: 18px;cursor: pointer;" @click="() => { $message.info('只是一个DEMO') }" />
         </a-tooltip>
-      </div>
+      </div> -->
     </template>
 
     <setting-drawer v-if="isDev" :settings="settings" @change="handleSettingChange">
@@ -39,7 +40,7 @@
       <right-content :top-menu="settings.layout === 'topmenu'" :is-mobile="isMobile" :theme="settings.theme" />
     </template>
     <!-- custom footer / 自定义Footer -->
-    <template v-slot:footerRender>
+    <template v-if="settings.showFooter" v-slot:footerRender>
       <global-footer />
     </template>
     <router-view />

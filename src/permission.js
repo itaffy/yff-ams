@@ -29,6 +29,7 @@ router.beforeEach((to, from, next) => {
       // if (menus.length > 0 && menus.length !== 2) {
 
       // }
+      console.log(store.getters.addRouters.length)
       if (store.getters.addRouters.length === 0) {
         store
           .dispatch('GetMenus')

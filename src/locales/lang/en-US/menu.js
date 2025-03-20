@@ -31,9 +31,15 @@ export default {
     'menu.exception.not-find': '404',
     'menu.exception.server-error': '500',
     'menu.exception.trigger': 'Trigger',
-    'menu.account': 'Account',
-    'menu.account.center': 'Account Center',
-    'menu.account.settings': 'Account Settings',
-    'menu.account.trigger': 'Trigger Error',
-    'menu.account.logout': 'Logout'
+    'menu.system': 'System',
+    'menu.system.account.center': 'Account Center',
+    'menu.system.account.settings': 'Account Settings',
+    'menu.system.role': 'role',
+    'menu.system.userList': 'userList',
+    'menu.system.chargeClassify': 'chargeClassify',
+    'menu.system.areaPermission': 'areaPermission',
+    'menu.system.set': 'set',
+    
+    'menu.system.account.trigger': 'Trigger Error',
+    'menu.system.account.logout': 'Logout'
 }

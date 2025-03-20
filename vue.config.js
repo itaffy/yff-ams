@@ -134,7 +134,25 @@ const vueConfig = {
         pathRewrite: {
           '^/Api': ''
         }
-      }
+      },
+      '/pay': {
+        target: 'http://121.42.175.177:8049', // 测试环境
+        // target: 'https://c3.jisheyun.com/capi', // 正式环境
+        ws: false,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/pay': ''
+        }
+      },
+      '/order': {
+        target: 'http://121.42.175.177:8501', // 测试环境
+        // target: 'https://c3.jisheyun.com/service/orderapi', // 正式环境
+        ws: false,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/order': ''
+        }
+      },
     }
   },
 

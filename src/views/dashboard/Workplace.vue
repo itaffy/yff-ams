@@ -228,10 +228,10 @@ export default {
     })
   },
   mounted () {
-    this.getProjects()
-    this.getActivity()
-    this.getTeams()
-    this.initRadar()
+    // this.getProjects()
+    // this.getActivity()
+    // this.getTeams()
+    // this.initRadar()
   },
   methods: {
     getProjects () {

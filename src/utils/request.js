@@ -1,15 +1,21 @@
 import axios from 'axios'
 import store from '@/store'
 import storage from 'store'
+import {resetRouter} from '@/router'
 import {message} from 'ant-design-vue'
 import { VueAxios } from './axios'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
+import {
+  baseURL,
+  payURL,
+  orderURL,
+} from '@/config/apiConfig'
 
 // 创建 axios 实例
 const request = axios.create({ 
   // API 请求的默认前缀
-  baseURL: process.env.VUE_APP_API_BASE_URL,
-  timeout: 60000 // 请求超时时间
+  // baseURL: process.env.VUE_APP_API_BASE_URL,
+  timeout: 1000 * 60 * 2 // 请求超时时间
 })
 
 const checkStatus = status => {
@@ -22,9 +28,7 @@ const checkStatus = status => {
       const token = storage.get(ACCESS_TOKEN)
       if (token) {
         store.dispatch('Logout').then(() => {
-          setTimeout(() => {
-            window.location.reload()
-          }, 1500)
+          router.replace({path:'/user/login'})
         })
       }
       break
@@ -77,6 +81,11 @@ request.interceptors.request.use(config => {
   if (token) {
     config.headers[ACCESS_TOKEN] = token
   }
+  let preUrl = baseURL
+  if (config.params.order || (config.data && config.data.order)) {
+    preUrl = orderURL
+  }
+  config.url = preUrl + config.url
   return config
 }, errorHandler)
 

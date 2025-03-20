@@ -31,9 +31,15 @@ export default {
     'menu.exception.not-find': '404',
     'menu.exception.server-error': '500',
     'menu.exception.trigger': '触发错误',
-    'menu.account': '个人页',
-    'menu.account.center': '个人中心',
-    'menu.account.settings': '个人设置',
-    'menu.account.trigger': '触发报错',
-    'menu.account.logout': '退出登录'
+    'menu.system': '系统管理',
+    'menu.system.account.center': '个人中心',
+    'menu.system.account.settings': '个人设置',
+    'menu.system.role': '角色管理',
+    'menu.system.userList': '用户管理',
+    'menu.system.chargeClassify': '收费分类',
+    'menu.system.areaPermission': '区域权限',
+    'menu.system.set': '系统设置',
+
+    'menu.system.account.trigger': '触发报错',
+    'menu.system.account.logout': '退出登录'
 }
