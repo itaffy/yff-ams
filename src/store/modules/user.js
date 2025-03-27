@@ -98,17 +98,15 @@ const user = {
 
     // 登出
     Logout ({ commit, state }) {
-      return new Promise((resolve) => {
+      return new Promise((resolve,reject) => {
         logout().then((res) => {
           commit('SET_TOKEN', '')
-          commit('SET_ROLES', [])
           commit('SET_USER_INFO', {})
           storage.remove(ACCESS_TOKEN)
           storage.remove(USER_INFO)
           resolve(res)
         }).catch((err) => {
           console.log('logout fail:', err)
-          
         }).finally(() => {
         })
       })

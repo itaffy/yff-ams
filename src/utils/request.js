@@ -1,10 +1,9 @@
 import axios from 'axios'
 import store from '@/store'
 import storage from 'store'
-import {resetRouter} from '@/router'
 import {message} from 'ant-design-vue'
 import { VueAxios } from './axios'
-import { ACCESS_TOKEN } from '@/store/mutation-types'
+import { ACCESS_TOKEN, USER_INFO } from '@/store/mutation-types'
 import {
   baseURL,
   payURL,
@@ -25,12 +24,11 @@ const checkStatus = status => {
       break
     case 401:
       message.error('登录失效！请您重新登录')
-      const token = storage.get(ACCESS_TOKEN)
-      if (token) {
-        store.dispatch('Logout').then(() => {
-          router.replace({path:'/user/login'})
-        })
-      }
+      store.commit('SET_TOKEN', '')
+      store.commit('SET_USER_INFO', {})
+      storage.remove(ACCESS_TOKEN)
+      storage.remove(USER_INFO)
+      router.replace({path:'/user/login'})
       break
     case 403:
       message.error('当前账号无权限访问！')
@@ -82,7 +80,7 @@ request.interceptors.request.use(config => {
     config.headers[ACCESS_TOKEN] = token
   }
   let preUrl = baseURL
-  if (config.params.order || (config.data && config.data.order)) {
+  if ((config.params && config.params.order) || (config.data && config.data.order)) {
     preUrl = orderURL
   }
   config.url = preUrl + config.url

@@ -39,7 +39,12 @@ export default {
     'menu.system.chargeClassify': '收费分类',
     'menu.system.areaPermission': '区域权限',
     'menu.system.set': '系统设置',
-
+    'menu.dossier': '档案管理',
+    'menu.dossier.device': '表计档案',
+    'menu.dossier.area': '区域管理',
+    'menu.dossier.charge': '收费方案',
+    'menu.dossier.preWarning': '预警方案',
+    'menu.dossier.close': '销户销表',
     'menu.system.account.trigger': '触发报错',
     'menu.system.account.logout': '退出登录'
 }

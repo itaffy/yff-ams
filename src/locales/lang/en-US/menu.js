@@ -39,7 +39,12 @@ export default {
     'menu.system.chargeClassify': 'chargeClassify',
     'menu.system.areaPermission': 'areaPermission',
     'menu.system.set': 'set',
-    
+    'menu.dossier': 'dossier',
+    'menu.dossier.device': 'device manage',
+    'menu.dossier.area': '区域管理',
+    'menu.dossier.charge': '收费方案',
+    'menu.dossier.preWarning': '预警方案',
+    'menu.dossier.close': '销户销表',
     'menu.system.account.trigger': 'Trigger Error',
     'menu.system.account.logout': 'Logout'
 }

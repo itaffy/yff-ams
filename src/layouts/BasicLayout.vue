@@ -8,6 +8,7 @@
     :handleCollapse="handleCollapse"
     :i18nRender="i18nRender"
     :siderWidth="220"
+    :footer="false"
     v-bind="settings"
   >
 
@@ -24,11 +25,13 @@
           增加 Header 左侧内容区自定义
     -->
     <template v-slot:headerContentRender>
-      <!-- <div>
-        <a-tooltip title="刷新页面">
+      <div>
+        <!-- <a-tooltip title="刷新页面">
           <a-icon type="reload" style="font-size: 18px;cursor: pointer;" @click="() => { $message.info('只是一个DEMO') }" />
-        </a-tooltip>
-      </div> -->
+        </a-tooltip> -->
+        <span style="margin-right:20px">项目ID：<span style="font-weight:600">F{{userInfo.CuID}}</span></span>
+        <span>项目名称：<span style="font-weight:600">{{userInfo.ProjectName}}</span></span>
+      </div>
     </template>
 
     <setting-drawer v-if="isDev" :settings="settings" @change="handleSettingChange">
@@ -40,8 +43,8 @@
       <right-content :top-menu="settings.layout === 'topmenu'" :is-mobile="isMobile" :theme="settings.theme" />
     </template>
     <!-- custom footer / 自定义Footer -->
-    <template v-if="settings.showFooter" v-slot:footerRender>
-      <global-footer />
+    <template  v-slot:footerRender>
+      <global-footer v-if="settings.showFooter" />
     </template>
     <router-view />
   </pro-layout>
@@ -102,7 +105,8 @@ export default {
   computed: {
     ...mapState({
       // 动态主路由
-      mainMenu: state => state.permission.addRouters
+      mainMenu: state => state.permission.addRouters,
+      userInfo: state => state.user.userInfo
     })
   },
   created () {

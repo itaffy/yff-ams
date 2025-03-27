@@ -46,7 +46,7 @@
           </span>
         </span>
         <span slot="action" slot-scope="text, record">
-          <template>
+          <template v-if="![1, 2, 3, 5, 6].includes(record.Id) && record.Code !== 'BDFKSF'">
             <a href="javascript:;" @click="handleEdit(record)">修改</a>
             <a-divider type="vertical" />
             <a href="javascript:;" style="color:#f5222d" @click="delet(record)">删除</a>

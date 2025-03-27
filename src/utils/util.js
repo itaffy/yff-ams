@@ -93,3 +93,37 @@ export function scorePassword (pass) {
 
   return parseInt(score)
 }
+
+/**
+ * 将区域列表转成树列表
+ */
+export function listToTree(data, id = 0) {
+  const tree = []
+  let temp
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].ParentID === id) {
+      const obj = data[i]
+      temp = listToTree(data, data[i].ID)
+      if (temp.length > 0) {
+        obj.children = temp
+      }
+      tree.push(obj)
+    }
+  }
+  return tree
+}
+
+export const numFilter = (value, num = 2) => {
+  let realVal = ''
+  if (value !== null && !isNaN(value) && value !== '') {
+    // 截取当前数据到小数点后两位 4舍5入,改变toFixed的值即可截取你想要的数值
+    if (Number.isInteger(value)) {
+      realVal = value
+    } else {
+      realVal = parseFloat(value).toFixed(num)
+    }
+  } else {
+    realVal = '-'
+  }
+  return realVal
+}

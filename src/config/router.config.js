@@ -202,6 +202,45 @@ export const asyncRouterMap = [
         ]
       },
       {
+        path: '/dossier',
+        component: RouteView,
+        redirect: '/dossier/device',
+        name: 'dossier',
+        meta: { title: 'menu.dossier', icon: 'user', keepAlive: true, permission: ['dossier']},
+        children: [
+          {
+            path: '/dossier/device',
+            name: 'device',
+            component: () => import('@/views/dossier/device'),
+            meta: { title: 'menu.dossier.device', keepAlive: true, permission: ['dossier']}
+          },
+          {
+            path: '/dossier/charge',
+            name: 'charge',
+            component: () => import('@/views/dossier/charge'),
+            meta: { title: 'menu.dossier.charge', keepAlive: true, permission: ['dossier']}
+          },
+          {
+            path: '/dossier/preWarning',
+            name: 'preWarning',
+            component: () => import('@/views/dossier/preWarning'),
+            meta: { title: 'menu.dossier.preWarning', keepAlive: true, permission: ['dossier']}
+          },
+          {
+            path: '/dossier/close',
+            name: 'close',
+            component: () => import('@/views/dossier/close'),
+            meta: { title: 'menu.dossier.close', keepAlive: true, permission: ['dossier']}
+          },
+          {
+            path: '/dossier/area',
+            name: 'area',
+            component: () => import('@/views/dossier/area'),
+            meta: { title: 'menu.dossier.area', keepAlive: true, permission: ['dossier']}
+          },
+        ]
+      },
+      {
         path: '/system',
         component: RouteView,
         redirect: '/system/account/center',

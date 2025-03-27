@@ -29,12 +29,12 @@ router.beforeEach((to, from, next) => {
       // if (menus.length > 0 && menus.length !== 2) {
 
       // }
-      console.log(store.getters.addRouters.length)
+      // console.log(store.getters.addRouters.length)
       if (store.getters.addRouters.length === 0) {
         store
           .dispatch('GetMenus')
           .then(res => {
-            console.log('res', res)
+            // console.log('res', res)
             // 根据用户权限信息生成可访问的路由表
             store.dispatch('GenerateRoutes', res.data).then(() => {
               // 动态添加可访问路由表
